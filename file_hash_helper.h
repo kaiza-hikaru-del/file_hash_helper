@@ -17,5 +17,8 @@ public:
 
 private:
     Ui::File_Hash_Helper *ui;
+
+    //初始化界面
+    void init_ui();
 };
 #endif // FILE_HASH_HELPER_H
