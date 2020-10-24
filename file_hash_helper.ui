@@ -31,6 +31,9 @@
     <height>550</height>
    </size>
   </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>File_Hash_Helper</string>
   </property>

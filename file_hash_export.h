@@ -2,7 +2,8 @@
 #define FILE_HASH_EXPORT_H
 
 #include <QMainWindow>
-#include <QCloseEvent>
+#include <QFileDialog>
+#include <QDebug>
 
 namespace Ui {
 class File_Hash_Export;
@@ -15,6 +16,11 @@ class File_Hash_Export : public QMainWindow
 public:
     explicit File_Hash_Export(QWidget *parent = nullptr);
     ~File_Hash_Export();
+
+private slots:
+    void on_btn_exit_clicked();//退出按钮按下槽函数
+
+    void on_btn_finddir_clicked();
 
 private:
     Ui::File_Hash_Export *ui;
