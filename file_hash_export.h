@@ -2,6 +2,7 @@
 #define FILE_HASH_EXPORT_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 
 namespace Ui {
 class File_Hash_Export;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::File_Hash_Export *ui;
+
 };
 
 #endif // FILE_HASH_EXPORT_H

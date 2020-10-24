@@ -1,5 +1,6 @@
 #include "file_hash_helper.h"
 #include "ui_file_hash_helper.h"
+#include "file_hash_export.h"
 
 File_Hash_Helper::File_Hash_Helper(QWidget *parent)
     : QMainWindow(parent)
@@ -37,3 +38,17 @@ void File_Hash_Helper::init_ui()
     this->ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
+//开始校验按钮按下槽函数
+void File_Hash_Helper::on_btn_cal_clicked()
+{
+
+}
+
+//导出按钮按下槽函数
+void File_Hash_Helper::on_btn_export_clicked()
+{
+    //新建窗口对象
+    this->file_hash_export = new File_Hash_Export(this);
+    //显示该模态窗口
+    this->file_hash_export->show();
+}
