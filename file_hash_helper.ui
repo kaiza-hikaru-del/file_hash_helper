@@ -169,7 +169,7 @@
          </font>
         </property>
         <property name="text">
-         <string>计算并比对</string>
+         <string>开始校验</string>
         </property>
        </widget>
       </item>
