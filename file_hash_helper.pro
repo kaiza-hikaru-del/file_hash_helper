@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     file_hash_export.cpp \
+    hashcode_calculate.cpp \
     main.cpp \
     file_hash_helper.cpp
 
 HEADERS += \
     file_hash_export.h \
-    file_hash_helper.h
+    file_hash_helper.h \
+    hashcode_calculate.h
 
 FORMS += \
     file_hash_export.ui \

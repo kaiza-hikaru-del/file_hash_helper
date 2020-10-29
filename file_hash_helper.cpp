@@ -9,10 +9,27 @@ File_Hash_Helper::File_Hash_Helper(QWidget *parent)
     ui->setupUi(this);
     //初始化界面
     this->init_ui();
+    //打开即开启子线程
+    Hashcode_Calculate* calculator = new Hashcode_Calculate;
+    calculator->moveToThread(&this->childThread);
+    //关联线程结束处理
+    connect(&this->childThread,&QThread::finished,calculator,&Hashcode_Calculate::deleteLater);
+    //关联开始信号与计算函数
+    connect(this,&File_Hash_Helper::startHashCal,calculator,&Hashcode_Calculate::calHashcode);
+    //关联进度信号与处理函数
+    connect(calculator,&Hashcode_Calculate::nowProgress,this,&File_Hash_Helper::showProgress);
+    //关联结果型号与处理函数
+    connect(calculator,&Hashcode_Calculate::finishHashCal,this,&File_Hash_Helper::showResult);
+    //开启子线程
+    this->childThread.start();
 }
 
 File_Hash_Helper::~File_Hash_Helper()
 {
+    //使线程结束
+    this->childThread.quit();
+    this->childThread.wait();
+    qDebug() << "Threads closed!";
     delete ui;
 }
 
@@ -42,6 +59,18 @@ void File_Hash_Helper::init_ui()
     this->ui->l_result->setText("");
     //设置icon
     this->setWindowIcon(QIcon(":/icon/Logo.svg"));
+}
+
+//清空一些值
+void File_Hash_Helper::setEmpty()
+{
+    //进度条置0
+    this->ui->progressBar->setValue(0);
+    //表格元素置空
+    this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(""));
+    this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
+    //结果置空
+    this->ui->l_result->setText("");
 }
 
 //拖放的东西进入后执行函数
@@ -81,17 +110,28 @@ void File_Hash_Helper::dropEvent(QDropEvent *event)
 
 
         //清空一些值
-        this->ui->progressBar->setValue(0);
-        this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(""));
-        this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
-        this->ui->l_result->setText("");
+        this->setEmpty();
     }
 }
 
 //开始校验按钮按下槽函数
 void File_Hash_Helper::on_btn_cal_clicked()
 {
-//    this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
+    //this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
+    //若打不开文件
+    QFile file(this->ui->le_file->text());
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug() << "Cannot open file!";
+        QMessageBox::critical(this,"错误！","<b>找不到</b>指定文件！");
+        return;
+    }
+
+    //清空一些值
+    this->setEmpty();
+    //冻结窗口 待计算完成释放 释放在处理结果函数
+    this->setEnabled(false);
+    //发出计算信号 交由子线程处理
+    emit startHashCal(this->ui->le_file->text(),this->ui->cb_algo->currentText());
 }
 
 //导出按钮按下槽函数
@@ -120,9 +160,56 @@ void File_Hash_Helper::on_btn_findfile_clicked()
     //成功则写入lineEdit
     this->ui->le_file->setText(filename);
     //清空一些值
-    this->ui->progressBar->setValue(0);
-    this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(""));
-    this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
-    this->ui->l_result->setText("");
+   this->setEmpty();
 }
 
+//显示进度
+void File_Hash_Helper::showProgress(int prog)
+{
+    this->ui->progressBar->setValue(prog);
+}
+
+//显示结果
+void File_Hash_Helper::showResult(QString result)
+{
+    this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(this->ui->cb_algo->currentText()));
+    this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(result));
+    //解冻窗口
+    this->setEnabled(true);
+    //若不存在参考值则直接退出
+    if(this->ui->le_ref->text().isEmpty()){
+        qDebug() << "Finish calculating but no reference!";
+        return;
+    }
+
+    //存在参考值则显示结果
+    if(result == this->ui->le_ref->text())
+        this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newCorrect.svg").scaled(100,100,Qt::KeepAspectRatio)));
+    else
+        this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
+
+}
+
+//参考值改变时
+void File_Hash_Helper::on_le_ref_textChanged(const QString &arg1)
+{
+    //测试用
+    qDebug() << arg1;
+    //若表格内无结果
+    if(this->ui->tableWidget->item(0,1)->text().trimmed().isEmpty()){
+        qDebug() << "No result!";
+        return;
+    }
+    //若参考值本身也没有
+    if(arg1.trimmed().isEmpty()){
+        qDebug() << "No reference!";
+        //清空结果
+        this->ui->l_result->setText("");
+        return;
+    }
+    //若有结果改变比对结果
+    if(arg1.trimmed().toUpper() == this->ui->tableWidget->item(0,1)->text().trimmed())
+        this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newCorrect.svg").scaled(100,100,Qt::KeepAspectRatio)));
+    else
+        this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
+}
