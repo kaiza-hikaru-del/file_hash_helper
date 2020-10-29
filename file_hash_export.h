@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QDebug>
 
+#include "hashcode_calculate.h" //计算哈希值头文件
+
 namespace Ui {
 class File_Hash_Export;
 }
