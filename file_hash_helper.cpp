@@ -48,17 +48,20 @@ void File_Hash_Helper::init_ui()
     this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(""));
     this->ui->tableWidget->item(0,0)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
-    //设置列宽
+    //设置列宽与不可调
     this->ui->tableWidget->setColumnWidth(0,60);
     this->ui->tableWidget->setColumnWidth(1,325);
+    this->ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     //设置表格为只读
-//    this->ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    this->ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->ui->tableWidget->item(0,0)->setFlags(Qt::NoItemFlags);
     this->ui->tableWidget->item(0,1)->setFlags(Qt::NoItemFlags);
     //设置结果栏为空
     this->ui->l_result->setText("");
     //设置icon
     this->setWindowIcon(QIcon(":/icon/Logo.svg"));
+    //设置结果显示栏为一张其他图片
+    this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/Logo.svg").scaled(100,100,Qt::KeepAspectRatio)));
 }
 
 //清空一些值
@@ -71,6 +74,8 @@ void File_Hash_Helper::setEmpty()
     this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
     //结果置空
     this->ui->l_result->setText("");
+    //设置结果显示栏为一张其他图片
+    this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/Logo.svg").scaled(100,100,Qt::KeepAspectRatio)));
 }
 
 //拖放的东西进入后执行函数
@@ -117,7 +122,6 @@ void File_Hash_Helper::dropEvent(QDropEvent *event)
 //开始校验按钮按下槽函数
 void File_Hash_Helper::on_btn_cal_clicked()
 {
-    //this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
     //若打不开文件
     QFile file(this->ui->le_file->text());
     if(!file.open(QIODevice::ReadOnly)){
@@ -204,7 +208,8 @@ void File_Hash_Helper::on_le_ref_textChanged(const QString &arg1)
     if(arg1.trimmed().isEmpty()){
         qDebug() << "No reference!";
         //清空结果
-        this->ui->l_result->setText("");
+        //设置结果显示栏为一张其他图片
+        this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/Logo.svg").scaled(100,100,Qt::KeepAspectRatio)));
         return;
     }
     //若有结果改变比对结果
@@ -212,4 +217,28 @@ void File_Hash_Helper::on_le_ref_textChanged(const QString &arg1)
         this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newCorrect.svg").scaled(100,100,Qt::KeepAspectRatio)));
     else
         this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
+}
+
+//算法改变时
+void File_Hash_Helper::on_cb_algo_currentIndexChanged(const QString &arg1)
+{
+    qDebug() << arg1;
+    //直接清空一些值
+    this->setEmpty();
+}
+
+//复制结果
+void File_Hash_Helper::on_btn_copyresult_clicked()
+{
+    //若没有结果
+    if(this->ui->tableWidget->item(0,1)->text().isEmpty()){
+        qDebug() << "no result";
+        QMessageBox::warning(this,"警告","没有结果！");
+        return;
+    }
+
+    QClipboard* clipboard = QApplication::clipboard();
+    QString result = this->ui->tableWidget->item(0,1)->text();
+    clipboard->setText(result);
+    QMessageBox::about(this,"复制成功","已将结果复制到剪贴板！");
 }

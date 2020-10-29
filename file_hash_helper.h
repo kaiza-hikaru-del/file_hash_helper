@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QThread>
+#include <QClipboard>
 
 #include "hashcode_calculate.h"//计算文件哈希值类
 
@@ -36,6 +37,10 @@ private slots:
     void on_btn_findfile_clicked();//浏览按钮按下槽函数
 
     void on_le_ref_textChanged(const QString &arg1);
+
+    void on_cb_algo_currentIndexChanged(const QString &arg1);
+
+    void on_btn_copyresult_clicked();
 
 public slots:
     void showProgress(int prog);//显示进度槽函数
