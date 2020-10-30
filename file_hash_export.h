@@ -8,6 +8,8 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
+#include <QThread>
+#include <QMessageBox>
 
 #include "hashcode_calculate.h" //计算哈希值头文件
 
@@ -23,7 +25,11 @@ public:
     explicit File_Hash_Export(QWidget *parent = nullptr);
     ~File_Hash_Export();
 
-    Hashcode_Calculate childHashThread;//子线程变量
+    void setFilename(QString filename);
+
+    void setDefault(QString filename);
+
+    QThread childHashThread;//子线程变量
 
 public slots:
     void showProgress(int prog);
@@ -34,12 +40,14 @@ private slots:
 
     void on_btn_finddir_clicked();
 
+    void on_btn_export_clicked();
+
 private:
     Ui::File_Hash_Export *ui;
 
-    QString filename;
+    QString filename;//原文件名
+    QString exportFilename;//导出文件名
 
-    void setFilename(QString filename);
 
 signals:
     void startExport(QString filename, QString algolist);

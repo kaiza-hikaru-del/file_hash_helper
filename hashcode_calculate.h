@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>    //文件相关头文件
 #include <QString>
+#include <QStringList>
 
 class Hashcode_Calculate : public QObject
 {
@@ -18,7 +19,7 @@ public:
 public slots:
     void calHashcode(QString filename, QString algo);
 
-    void exportCalHashCode(QString filename, QString algolist);
+    void exportCalHashCode(QString filename, QString algos);
 
 signals:
     void nowProgress(int prog);

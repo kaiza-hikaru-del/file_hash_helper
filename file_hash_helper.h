@@ -13,6 +13,7 @@
 #include <QClipboard>
 
 #include "hashcode_calculate.h"//计算文件哈希值类
+#include "file_hash_export.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class File_Hash_Helper; }
@@ -51,7 +52,7 @@ private:
     Ui::File_Hash_Helper *ui;
 
     //子界面变量
-    QMainWindow* file_hash_export;
+    File_Hash_Export* file_hash_export;
 
     //初始化界面
     void init_ui();

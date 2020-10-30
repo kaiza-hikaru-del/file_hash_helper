@@ -1,6 +1,6 @@
 #include "file_hash_helper.h"
 #include "ui_file_hash_helper.h"
-#include "file_hash_export.h"
+
 
 File_Hash_Helper::File_Hash_Helper(QWidget *parent)
     : QMainWindow(parent)
@@ -95,7 +95,7 @@ void File_Hash_Helper::dropEvent(QDropEvent *event)
         QList<QUrl> fileUrls = event->mimeData()->urls();
         //拖入多文件
         if(fileUrls.size()>1){
-            QMessageBox::critical(this,"错误！","请拖入<b>一个</b>文件！");
+            QMessageBox::critical(this,"错误","请拖入<b>一个</b>文件！");
             return;
         }
         QString filename = fileUrls.first().toLocalFile();
@@ -103,7 +103,7 @@ void File_Hash_Helper::dropEvent(QDropEvent *event)
         QFileInfo fileinfo(filename);
         //拖入的不是文件
         if(!fileinfo.isFile()){
-            QMessageBox::critical(this,"错误！","请拖入一个<b>文件</b>！");
+            QMessageBox::critical(this,"错误","请拖入一个<b>文件</b>！");
             return;
         }
          //如果写入值与原先值一样则直接返回
@@ -126,7 +126,7 @@ void File_Hash_Helper::on_btn_cal_clicked()
     QFile file(this->ui->le_file->text());
     if(!file.open(QIODevice::ReadOnly)){
         qDebug() << "Cannot open file!";
-        QMessageBox::critical(this,"错误！","请<b>打开</b>一个文件！");
+        QMessageBox::critical(this,"错误","请<b>打开</b>一个文件！");
         return;
     }
 
@@ -145,12 +145,15 @@ void File_Hash_Helper::on_btn_export_clicked()
     QFile file(this->ui->le_file->text());
     if(!file.open(QIODevice::ReadOnly)){
         qDebug() << "Cannot open file!";
-        QMessageBox::critical(this,"错误！","请<b>打开</b>一个文件！");
+        QMessageBox::critical(this,"错误","请<b>打开</b>一个文件！");
         return;
     }
 
     //新建窗口对象
     this->file_hash_export = new File_Hash_Export(this);
+    //传入参数 并设置默认路径
+    this->file_hash_export->setFilename(this->ui->le_file->text());
+    this->file_hash_export->setDefault(this->ui->le_file->text());
     //显示该模态窗口
     this->file_hash_export->show();
 }
@@ -186,6 +189,8 @@ void File_Hash_Helper::showResult(QString result)
 {
     this->ui->tableWidget->setItem(0,0,new QTableWidgetItem(this->ui->cb_algo->currentText()));
     this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(result));
+    //将进度条置最大值
+    this->ui->progressBar->setValue(1000);
     //解冻窗口
     this->setEnabled(true);
     //若不存在参考值则直接退出
@@ -195,7 +200,7 @@ void File_Hash_Helper::showResult(QString result)
     }
 
     //存在参考值则显示结果
-    if(result == this->ui->le_ref->text())
+    if(result == this->ui->le_ref->text().toUpper())
         this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newCorrect.svg").scaled(100,100,Qt::KeepAspectRatio)));
     else
         this->ui->l_result->setPixmap(QPixmap::fromImage(QImage(":/icon/newWrong.svg").scaled(100,100,Qt::KeepAspectRatio)));
