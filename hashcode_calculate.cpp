@@ -58,3 +58,10 @@ void Hashcode_Calculate::calHashcode(QString filename, QString algo)
     //计算完成 送出结束信号
     emit finishHashCal(QString(Hashcode.toHex()).toUpper());
 }
+
+//导出部分 计算文件哈希值
+void Hashcode_Calculate::exportCalHashCode(QString filename, QString algolist)
+{
+
+}
+

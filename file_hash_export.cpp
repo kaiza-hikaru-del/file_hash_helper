@@ -15,6 +15,18 @@ File_Hash_Export::~File_Hash_Export()
     delete ui;
 }
 
+//显示进度
+void File_Hash_Export::showProgress(int prog)
+{
+
+}
+
+//导出结果
+void File_Hash_Export::exportFile(QString result)
+{
+
+}
+
 //退出按钮按下槽函数
 void File_Hash_Export::on_btn_exit_clicked()
 {
@@ -36,4 +48,10 @@ void File_Hash_Export::on_btn_finddir_clicked()
     this->ui->le_dir->setText(filedir);
     //将一些值清零
     this->ui->progressBar->setValue(0);
+}
+
+//设置文件名
+void File_Hash_Export::setFilename(QString filename)
+{
+    this->filename = filename;
 }

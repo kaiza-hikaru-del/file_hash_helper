@@ -126,7 +126,7 @@ void File_Hash_Helper::on_btn_cal_clicked()
     QFile file(this->ui->le_file->text());
     if(!file.open(QIODevice::ReadOnly)){
         qDebug() << "Cannot open file!";
-        QMessageBox::critical(this,"错误！","<b>找不到</b>指定文件！");
+        QMessageBox::critical(this,"错误！","请<b>打开</b>一个文件！");
         return;
     }
 
@@ -141,6 +141,14 @@ void File_Hash_Helper::on_btn_cal_clicked()
 //导出按钮按下槽函数
 void File_Hash_Helper::on_btn_export_clicked()
 {
+    //若打不开文件
+    QFile file(this->ui->le_file->text());
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug() << "Cannot open file!";
+        QMessageBox::critical(this,"错误！","请<b>打开</b>一个文件！");
+        return;
+    }
+
     //新建窗口对象
     this->file_hash_export = new File_Hash_Export(this);
     //显示该模态窗口
