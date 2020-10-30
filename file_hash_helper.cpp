@@ -49,9 +49,9 @@ void File_Hash_Helper::init_ui()
     this->ui->tableWidget->item(0,0)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     this->ui->tableWidget->setItem(0,1,new QTableWidgetItem(""));
     //设置列宽与不可调
-    this->ui->tableWidget->setColumnWidth(0,60);
+//    this->ui->tableWidget->setColumnWidth(0,60);
 //    this->ui->tableWidget->setColumnWidth(1,325);
-    this->ui->tableWidget->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);//固定列宽
+    this->ui->tableWidget->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);//同文字适应列宽
     this->ui->tableWidget->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);//活动列宽 但不能被用户更改
     //设置表格为只读
     this->ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
