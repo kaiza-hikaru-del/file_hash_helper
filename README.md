@@ -11,36 +11,36 @@
 ## 软件截图
 
 - 主界面
-![主界面](/software picture/主界面.png)
+![主界面](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/主界面.png)
 
 - 计算中
-![计算中](/software picture/计算中1.png)
-![计算中](/software picture/计算中2.png)
+![计算中](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/计算中1.png)
+![计算中](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/计算中2.png)
 
 - 计算完成
-![计算完成](/software picture/计算完成.png)
+![计算完成](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/计算完成.png)
 
 - 比对成功
-![比对成功](/software picture/比对成功.png)
+![比对成功](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/比对成功.png)
 
 - 比对失败
-![比对失败](/software picture/比对失败.png)
+![比对失败](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/比对失败.png)
 
 - 复制结果
-![复制结果](/software picture/复制结果.png)
+![复制结果](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/复制结果.png)
 
 - 导出界面
-![导出界面](/software picture/导出界面.png)
+![导出界面](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/导出界面.png)
 
 - 导出中
-![导出中](/software picture/导出中1.png)
-![导出中](/software picture/导出中2.png)
+![导出中](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/导出中1.png)
+![导出中](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/导出中2.png)
 
 - 导出成功
-![导出成功](/software picture/导出成功.png)
+![导出成功](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/导出成功.png)
 
 - 导出文件
-![导出文件](/software picture/导出文件.png)
+![导出文件](https://github.com/kaiza-hikaru-del/file_hash_helper/tree/main/software%20picture/导出文件.png)
 
 ## 尚未完成功能（暂不确定是否加入）
 
