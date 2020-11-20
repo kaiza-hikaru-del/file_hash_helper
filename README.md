@@ -11,44 +11,56 @@
 ## 软件截图
 
 - 主界面
+
 ![主界面](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E4%B8%BB%E7%95%8C%E9%9D%A2.png)
 
 
 - 计算中
+
 ![计算中](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E8%AE%A1%E7%AE%97%E4%B8%AD1.png)
+
 ![计算中](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E8%AE%A1%E7%AE%97%E4%B8%AD2.png)
 
 
 - 计算完成
+
 ![计算完成](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E8%AE%A1%E7%AE%97%E5%AE%8C%E6%88%90.png)
 
 
 - 比对成功
+
 ![比对成功](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E6%AF%94%E5%AF%B9%E6%88%90%E5%8A%9F.png)
 
 
 - 比对失败
+
 ![比对失败](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E6%AF%94%E5%AF%B9%E5%A4%B1%E8%B4%A5.png)
 
 
 - 复制结果
+
 ![复制结果](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%A4%8D%E5%88%B6%E7%BB%93%E6%9E%9C.png)
 
 
 - 导出界面
+
 ![导出界面](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%AF%BC%E5%87%BA%E7%95%8C%E9%9D%A2.png)
 
 
 - 导出中
+
 ![导出中](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%AF%BC%E5%87%BA%E4%B8%AD1.png)
+
 ![导出中](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%AF%BC%E5%87%BA%E4%B8%AD2.png)
 
 
 - 导出成功
+
 ![导出成功](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%AF%BC%E5%87%BA%E6%88%90%E5%8A%9F.png)
 
 
 - 导出文件
+
 ![导出文件](https://github.com/kaiza-hikaru-del/file_hash_helper/raw/main/software%20picture/%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6.png)
 
 
